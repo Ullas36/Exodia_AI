@@ -1,0 +1,26 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Docker Compose
+        run: sudo apt-get install docker-compose -y
+
+      - name: Build Containers
+        run: docker compose build
+
+      - name: Start Services
+        run: docker compose up -d
+
+      - name: List Running Containers
+        run: docker ps

@@ -1,0 +1,14 @@
+FROM python:3.12
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install django requests "weaviate-client>=3.26.7,<4.0.0" django-cors-headers gunicorn
+
+
+
+EXPOSE 8000
+
+CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+
